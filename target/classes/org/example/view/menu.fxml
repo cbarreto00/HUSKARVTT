@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #1E1E24;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MenuController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
+         <children>
+            <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#clicarCriarMesa" prefWidth="100.0" text="Criar Mesa" />
+            <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#clicarEntrarMesa" prefWidth="100.0" text="Entrar em Mesa" />
+            <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <MenuButton fx:id="usuarioNome" mnemonicParsing="false" style="-fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 6 15 6 15;" text="Usuário">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#usuarioSair" text="Sair" />
+              </items>
+            </MenuButton>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <TabPane maxHeight="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <tabs>
+          <Tab text="Jogador">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="Mestre">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="249.0" prefWidth="600.0" />
+            </content>
+          </Tab>
+        </tabs>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </TabPane>
+   </children>
+</VBox>
