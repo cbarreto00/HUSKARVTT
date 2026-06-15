@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" prefHeight="450.0" prefWidth="800.0" spacing="50.0" style="-fx-background-color: #1E1E24;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+    
+    <padding>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+    </padding>
+
+    <VBox prefWidth="350.0" spacing="30.0">
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Configurações da Mesa" textFill="WHITE" />
+        
+        <VBox spacing="5.0">
+            <Label style="-fx-font-weight: bold;" text="Nome da Mesa" textFill="WHITE" />
+            <TextField fx:id="nomeTextField" promptText="A Ordem da Fênix" />
+        </VBox>
+
+        <VBox spacing="5.0">
+            <Label style="-fx-font-weight: bold;" text="Senha da Mesa" textFill="WHITE" />
+         <PasswordField fx:id="senhaTextField" promptText="Senha" />
+        </VBox>
+
+        <VBox spacing="5.0">
+            <Label style="-fx-font-weight: bold;" text="Imagem de Capa" textFill="WHITE" />
+            <Button maxWidth="Infinity" onAction="#clicarImagemDeCapa" text="Escolher Arquivo..." />
+        </VBox> 
+        
+        <HBox alignment="CENTER" spacing="30.0">
+            <Button onAction="#clicarCancelarMesa" prefWidth="80.0" text="Cancelar" />
+            <Button onAction="#clicarCriarMesa" prefWidth="100.0" style="-fx-background-color: #6C5CE7; -fx-text-fill: white; -fx-font-weight: bold;" text="Criar Mesa" />
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+        </HBox>
+    </VBox>
+
+    <VBox alignment="CENTER" spacing="15.0">
+        
+        <StackPane prefHeight="180.0" prefWidth="300.0" style="-fx-background-color: #333333; -fx-background-radius: 10; -fx-border-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);">
+            
+            <ImageView fx:id="imagemPreview" fitHeight="180.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="false" />
+            
+            <VBox alignment="BOTTOM_LEFT" style="-fx-background-color: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); -fx-background-radius: 10; -fx-border-radius: 10;">
+                <padding>
+                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                </padding>
+                <Label fx:id="nomeDaMesaPreview" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Nome da Sua Mesa" />
+                <Label fx:id="idDaMesaPreview" style="-fx-text-fill: #CCCCCC; -fx-font-size: 12px;" text="#Nome da Sua Mesa" />
+            </VBox>
+        </StackPane>
+        
+        <Label style="-fx-font-style: italic; -fx-text-fill: #777777; -fx-font-size: 11px;" text="É assim que os jogadores verão sua mesa." />
+    </VBox>
+
+</HBox>
