@@ -1,5 +1,7 @@
 package org.example.view;
 
+import javafx.stage.Modality;
+import org.example.controller.CriarMesaController;
 import org.example.controller.MesaController;
 
 import javafx.fxml.FXMLLoader;
@@ -18,18 +20,20 @@ public class CriarMesaView {
 
     public void exibir(){
         try{
-            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/org/example/view/Mesaview.fxml"));
-            Parent rootMesa = fxmlloader.load();
+            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/org/example/view/criarMesa.fxml"));
+            Parent rootCriarMesa = fxmlloader.load();
 
-            MesaController controller = fxmlloader.getController();
-            controller.setTelaMesa(this);
+            CriarMesaController controller = fxmlloader.getController();
 
-            Scene scene = new Scene(rootMesa);
+            Scene scene = new Scene(rootCriarMesa);
             this.stage.setScene(scene);
-            this.stage.setTitle("Mesa");
+            this.stage.setResizable(false);
+            this.stage.initModality(Modality.APPLICATION_MODAL);
+            this.stage.setTitle("Criar Mesa");
             this.stage.show();
 
         } catch (Exception e){
+            e.printStackTrace();
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setHeaderText("Erro");
             alerta.showAndWait();

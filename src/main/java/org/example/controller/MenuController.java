@@ -19,6 +19,7 @@ public class MenuController {
     @FXML
     public void clicarCriarMesa() {
         CriarMesaView telaCriarMesa = new CriarMesaView(new Stage());
+        CriarMesaController criarMesaController = new CriarMesaController();
         telaCriarMesa.exibir();
     }
 
