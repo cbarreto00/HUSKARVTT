@@ -12,6 +12,9 @@
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.compilerArgs>
+            --add-reads VTTproject=ALL-UNNAMED
+        </maven.compiler.compilerArgs>
     </properties>
 
     <dependencies>
@@ -35,13 +38,13 @@
         <dependency>
             <groupId>com.j256.ormlite</groupId>
             <artifactId>ormlite-core</artifactId>
-            <version>6.1</version>
+            <version>5.7</version>
         </dependency>
 
         <dependency>
             <groupId>com.j256.ormlite</groupId>
             <artifactId>ormlite-jdbc</artifactId>
-            <version>6.1</version>
+            <version>5.7</version>
         </dependency>
 
         <dependency>
@@ -56,4 +59,31 @@
             <version>2.0.12</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <compilerArgs>
+                        <arg>--add-reads</arg>
+                        <arg>VTTproject=ALL-UNNAMED</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.8</version> <configuration>
+        <mainClass>org.example.Main</mainClass> <options>
+        <option>--add-reads</option>
+        <option>VTTproject=ALL-UNNAMED</option>
+    </options>
+    </configuration>
+    </plugin>
 </project>
