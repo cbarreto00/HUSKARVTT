@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.example.model.Token;
 import org.example.view.CriarMesaView;
+import org.example.view.EntrarMesaView;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -17,6 +18,7 @@ public class MesaController {
 
     private Stage stage;
     private CriarMesaView telaMesa;
+    private EntrarMesaView telaEntrarMesa;
 
     @FXML
     private Pane painelMesa;
@@ -32,6 +34,10 @@ public class MesaController {
 
     public void setTelaMesa(CriarMesaView telaMesa){
         this.telaMesa = telaMesa;
+    }
+
+    public void setTelaEntrarMesa(EntrarMesaView telaEntrarMesa){
+        this.telaEntrarMesa = telaEntrarMesa;
     }
 
     @FXML

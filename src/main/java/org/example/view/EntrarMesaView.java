@@ -1,8 +1,11 @@
 package org.example.view;
 
+import org.example.controller.MesaController;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class EntrarMesaView {
@@ -15,14 +18,17 @@ public class EntrarMesaView {
 
     public void exibir(){
         try{
-            AnchorPane rootVazio = new AnchorPane();
+            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/org/example/view/Mesaview.fxml"));
+            Parent rootMesa = fxmlloader.load();
 
-            Scene scene = new Scene(rootVazio);
+            MesaController controller = fxmlloader.getController();
+            controller.setTelaEntrarMesa(this);
 
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-            
+            Scene scene = new Scene(rootMesa);
+            this.stage.setScene(scene);
+            this.stage.setTitle("Mesa");
+            this.stage.show();
+
         } catch (Exception e){
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setHeaderText("Erro");
