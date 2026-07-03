@@ -1,7 +1,6 @@
 package org.example.view;
 
 import org.example.controller.MenuController;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

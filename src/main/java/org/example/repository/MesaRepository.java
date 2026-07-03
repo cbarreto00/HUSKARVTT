@@ -6,6 +6,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import org.example.database.DatabaseConnection;
 import org.example.model.Mesa;
+import java.util.List;
 
 public class MesaRepository {
 
@@ -28,4 +29,13 @@ public class MesaRepository {
             throw new RuntimeException("Erro ao salvar mesa.", e);
         }
     }
+
+    public List<Mesa> buscarTodas(){
+        try{
+            return this.mesaDao.queryForAll();
+        } catch (Exception e){
+            throw new RuntimeException("Erro ao buscar mesas.", e);
+        }
+    }
+
 }
