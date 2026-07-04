@@ -1,6 +1,9 @@
 package org.example.controller;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,7 +17,9 @@ import org.example.view.EntrarMesaView;
 import org.example.view.MenuView;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 import java.util.List;
+import java.util.Optional;
 
 public class MenuController {
 
@@ -69,10 +74,37 @@ public class MenuController {
             Label nomeDaMesa = new Label(mesa.getNome());
             nomeDaMesa.setStyle("-fx-font-weight: bold; -fx-font-size: 18; -fx-effect: dropshadow(one-pass-box, black, 15, 0.0, 0, 0);");
             StackPane.setAlignment(nomeDaMesa, Pos.BOTTOM_LEFT);
-            StackPane.setMargin(nomeDaMesa, new javafx.geometry.Insets(0, 0, 15, 20));
+            StackPane.setMargin(nomeDaMesa, new Insets(0, 0, 15, 20));
 
-            card.getChildren().addAll(capa, nomeDaMesa);
+            Button botaoExcluir = new Button("✕");
+            botaoExcluir.setStyle("-fx-background-color: rgba(0,0,0,0.6); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 15;");
+            botaoExcluir.setOnAction(evento -> clicarExcluirMesa(mesa));
+            StackPane.setAlignment(botaoExcluir, Pos.TOP_RIGHT);
+            StackPane.setMargin(botaoExcluir, new Insets(10, 10, 0, 0));
+
+            card.getChildren().addAll(capa, nomeDaMesa, botaoExcluir);
             painelMestreMesas.getChildren().add(card);
+        }
+    }
+
+    private void clicarExcluirMesa(Mesa mesa){
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Excluir Mesa");
+        confirmacao.setHeaderText("Excluir a mesa \"" + mesa.getNome() + "\"?");
+        confirmacao.setContentText("Essa ação não pode ser desfeita.");
+
+        Optional<ButtonType> resultado = confirmacao.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK){
+            try {
+                mesaRepository.excluir(mesa);
+                clicarAtualizarMesas();
+            } catch (Exception e){
+                Alert erro = new Alert(Alert.AlertType.ERROR);
+                erro.setTitle("Erro");
+                erro.setHeaderText("Não foi possível excluir a mesa.");
+                erro.setContentText(e.getMessage());
+                erro.showAndWait();
+            }
         }
     }
 }

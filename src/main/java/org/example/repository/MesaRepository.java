@@ -38,4 +38,20 @@ public class MesaRepository {
         }
     }
 
+    public void excluir(Mesa mesa){
+        try {
+            this.mesaDao.delete(mesa);
+        } catch (Exception e){
+            throw new RuntimeException("Erro ao excluir mesa.", e);
+        }
+    }
+
+    public void excluirPorId(int id){
+        try {
+            this.mesaDao.deleteById(id);
+        } catch (Exception e){
+            throw new RuntimeException("Erro ao excluir mesa.", e);
+        }
+    }
+
 }
