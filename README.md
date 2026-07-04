@@ -32,3 +32,36 @@ Estruturado seguindo as lógicas de Programação Orientada a Objetos e padrão 
 #### 3.1.4 Diagrama de Fluxo 
 
 <img width="1530" height="785" alt="Diagrama de Fluxo" src="https://github.com/user-attachments/assets/f28e4786-1a04-46b0-9a32-4c59eb357448" />
+
+
+## 4.Tutorial de Build e Execução
+
+### 4.1 Pré-requisitos
+
+Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
+
+* **Git**: Para clonar o repositório.
+* **Java Development Kit (JDK)**: Versão 17 ou superior.
+* **Apache Maven**:  3.8 ou superior
+---
+
+### Passo 1: Clonar o Repositório
+
+Abra o terminal (ou prompt de comando) e execute o comando abaixo para clonar o projeto para o seu ambiente local:
+
+```bash
+git clone https://github.com/poo-ec-2026-1/g11.git
+```
+Em seguida, navegue para a pasta do projeto:
+
+```bash
+cd g11
+```
+
+### Passo 2: Buildar (Compilar) o Projeto
+
+Utilizar o Maven para resolver todas as dependências.
+
+```bash
+mvn javafx:run
+```
