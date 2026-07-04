@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
+import java.util.Random;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -98,7 +99,7 @@ public class MesaController {
         }
 
         visualToken.setStroke(Color.WHITE);
-        visualToken.setStrokeWidth(3);
+        visualToken.setStrokeWidth(2);
         tokenSelecionadoVisual = visualToken;
     }
 
@@ -111,7 +112,12 @@ public class MesaController {
                 tokenEntity.getUrlImagem()
         );
 
-        Circle visualToken = new Circle(20, Color.RED);
+        Random rand = new Random();
+        int red = rand.nextInt(256);
+        int green = rand.nextInt(256);
+        int blue = rand.nextInt(256);
+
+        Circle visualToken = new Circle(20, Color.color(red / 255.0, green / 255.0, blue / 255.0));
         visualToken.setCenterX(token.posXProperty().get());
         visualToken.setCenterY(token.posYProperty().get());
         visualToken.centerXProperty().bindBidirectional(token.posXProperty());

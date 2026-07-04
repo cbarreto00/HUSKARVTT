@@ -43,15 +43,6 @@ public class MenuController {
         telaCriarMesa.exibir();
     }
 
-    @FXML
-    public void clicarEntrarMesa() {
-        Alert aviso = new Alert(Alert.AlertType.INFORMATION);
-        aviso.setTitle("Entrar em Mesa");
-        aviso.setHeaderText(null);
-        aviso.setContentText("Selecione uma mesa na aba \"Mestre\" para entrar nela.");
-        aviso.showAndWait();
-    }
-
     private void abrirMesa(Mesa mesa) {
         EntrarMesaView telaEntrarMesa = new EntrarMesaView(new Stage(), mesa);
         telaEntrarMesa.exibir();

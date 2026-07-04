@@ -14,12 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #1E1E24;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MenuController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" style="-fx-background-color: #1E1E24;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MenuController">
    <children>
       <HBox alignment="CENTER_LEFT" prefWidth="200.0" spacing="20.0" VBox.vgrow="NEVER">
          <children>
             <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#clicarCriarMesa" prefWidth="100.0" text="Criar Mesa" />
-            <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#clicarEntrarMesa" prefWidth="100.0" text="Entrar em Mesa" />
             <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <MenuButton fx:id="usuarioNome" mnemonicParsing="false" style="-fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 6 15 6 15;" text="Usuário">
               <items>
