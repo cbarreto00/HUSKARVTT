@@ -50,6 +50,10 @@ Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas em su
 Abra o terminal (ou prompt de comando) e execute o comando abaixo para clonar o projeto para o seu ambiente local:
 
 ```bash
+git init
+```
+
+```bash
 git clone https://github.com/poo-ec-2026-1/g11.git
 ```
 Em seguida, navegue para a pasta do projeto:
