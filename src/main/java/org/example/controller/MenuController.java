@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import java.util.List;
 import java.util.Optional;
+import org.example.model.Usuario;
 
 public class MenuController {
 
@@ -28,6 +29,7 @@ public class MenuController {
     private MenuView telaMenu;
     private MesaRepository mesaRepository = new MesaRepository();
     private TokenRepository tokenRepository = new TokenRepository();
+    private Usuario usuario;
 
     @FXML
     private TilePane painelMestreMesas;
@@ -46,6 +48,10 @@ public class MenuController {
     private void abrirMesa(Mesa mesa) {
         EntrarMesaView telaEntrarMesa = new EntrarMesaView(new Stage(), mesa);
         telaEntrarMesa.exibir();
+    }
+
+    public void setUsuario(Usuario usuario){
+        this.usuario = usuario;
     }
 
     @FXML
