@@ -12,6 +12,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Rectangle;
 import org.example.model.Mesa;
 import org.example.repository.MesaRepository;
+import org.example.repository.TokenRepository;
 import org.example.view.CriarMesaView;
 import org.example.view.EntrarMesaView;
 import org.example.view.MenuView;
@@ -26,6 +27,7 @@ public class MenuController {
     private Stage stage;
     private MenuView telaMenu;
     private MesaRepository mesaRepository = new MesaRepository();
+    private TokenRepository tokenRepository = new TokenRepository();
 
     @FXML
     private TilePane painelMestreMesas;
@@ -43,7 +45,15 @@ public class MenuController {
 
     @FXML
     public void clicarEntrarMesa() {
-        EntrarMesaView telaEntrarMesa = new EntrarMesaView(new Stage());
+        Alert aviso = new Alert(Alert.AlertType.INFORMATION);
+        aviso.setTitle("Entrar em Mesa");
+        aviso.setHeaderText(null);
+        aviso.setContentText("Selecione uma mesa na aba \"Mestre\" para entrar nela.");
+        aviso.showAndWait();
+    }
+
+    private void abrirMesa(Mesa mesa) {
+        EntrarMesaView telaEntrarMesa = new EntrarMesaView(new Stage(), mesa);
         telaEntrarMesa.exibir();
     }
 
@@ -78,9 +88,14 @@ public class MenuController {
 
             Button botaoExcluir = new Button("✕");
             botaoExcluir.setStyle("-fx-background-color: rgba(0,0,0,0.6); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 15;");
-            botaoExcluir.setOnAction(evento -> clicarExcluirMesa(mesa));
+            botaoExcluir.setOnMouseClicked(evento -> {
+                evento.consume();
+                clicarExcluirMesa(mesa);
+            });
             StackPane.setAlignment(botaoExcluir, Pos.TOP_RIGHT);
             StackPane.setMargin(botaoExcluir, new Insets(10, 10, 0, 0));
+
+            card.setOnMouseClicked(evento -> abrirMesa(mesa));
 
             card.getChildren().addAll(capa, nomeDaMesa, botaoExcluir);
             painelMestreMesas.getChildren().add(card);
@@ -96,6 +111,7 @@ public class MenuController {
         Optional<ButtonType> resultado = confirmacao.showAndWait();
         if (resultado.isPresent() && resultado.get() == ButtonType.OK){
             try {
+                tokenRepository.excluirTodosDaMesa(mesa);
                 mesaRepository.excluir(mesa);
                 clicarAtualizarMesas();
             } catch (Exception e){

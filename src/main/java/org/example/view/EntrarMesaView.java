@@ -1,6 +1,7 @@
 package org.example.view;
 
 import org.example.controller.MesaController;
+import org.example.model.Mesa;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,9 +12,11 @@ import javafx.stage.Stage;
 public class EntrarMesaView {
 
     private Stage stage;
+    private Mesa mesa;
 
-    public EntrarMesaView(Stage stage){
+    public EntrarMesaView(Stage stage, Mesa mesa){
         this.stage = stage;
+        this.mesa = mesa;
     }
 
     public void exibir(){
@@ -23,10 +26,11 @@ public class EntrarMesaView {
 
             MesaController controller = fxmlloader.getController();
             controller.setTelaEntrarMesa(this);
+            controller.setMesa(mesa);
 
             Scene scene = new Scene(rootMesa);
             this.stage.setScene(scene);
-            this.stage.setTitle("Mesa");
+            this.stage.setTitle(mesa != null ? "Mesa - " + mesa.getNome() : "Mesa");
             this.stage.show();
 
         } catch (Exception e){

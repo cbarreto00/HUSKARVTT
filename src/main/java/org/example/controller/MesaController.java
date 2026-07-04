@@ -1,8 +1,12 @@
 package org.example.controller;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.example.model.Mesa;
 import org.example.model.Token;
+import org.example.model.TokenEntity;
+import org.example.repository.TokenRepository;
 import org.example.view.CriarMesaView;
 import org.example.view.EntrarMesaView;
 
@@ -19,6 +23,9 @@ public class MesaController {
     private Stage stage;
     private CriarMesaView telaMesa;
     private EntrarMesaView telaEntrarMesa;
+
+    private Mesa mesa;
+    private final TokenRepository tokenRepository = new TokenRepository();
 
     @FXML
     private Pane painelMesa;
@@ -40,6 +47,25 @@ public class MesaController {
         this.telaEntrarMesa = telaEntrarMesa;
     }
 
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+        carregarTokensSalvos();
+    }
+
+    private void carregarTokensSalvos() {
+        painelMesa.getChildren().clear();
+        lblNomeToken.setText("Nenhum");
+
+        if (mesa == null) {
+            return;
+        }
+
+        List<TokenEntity> tokensSalvos = tokenRepository.buscarPorMesa(mesa);
+        for (TokenEntity tokenSalvo : tokensSalvos) {
+            criarTokenNaTela(tokenSalvo);
+        }
+    }
+
     @FXML
     private void adicionarTokenAleatorio() {
 
@@ -51,58 +77,75 @@ public class MesaController {
         Optional<String> resultado = dialog.showAndWait();
 
         if (resultado.isPresent() && !resultado.get().trim().isEmpty()) {
-            
+
             String nomeEscolhido = resultado.get();
-            Token novoToken = new Token(nomeEscolhido, 25, 25, "");
-            Circle visualToken = new Circle(20, Color.RED);
-            visualToken.setCenterX(novoToken.posXProperty().get());
-            visualToken.setCenterY(novoToken.posYProperty().get());
-            visualToken.centerXProperty().bindBidirectional(novoToken.posXProperty());
-            visualToken.centerYProperty().bindBidirectional(novoToken.posYProperty());
-            visualToken.setOnMouseClicked(me -> {
-            lblNomeToken.setText(novoToken.nomeProperty().get());
+
+            TokenEntity novoTokenEntity = new TokenEntity(mesa, nomeEscolhido, 25, 25, "");
+            tokenRepository.salvar(novoTokenEntity);
+
+            criarTokenNaTela(novoTokenEntity);
+        } else {
+            System.out.println("Criação de token cancelada pelo usuário.");
+        }
+    }
+
+    private void criarTokenNaTela(TokenEntity tokenEntity) {
+
+        Token token = new Token(
+                tokenEntity.getNome(),
+                tokenEntity.getPosX(),
+                tokenEntity.getPosY(),
+                tokenEntity.getUrlImagem()
+        );
+
+        Circle visualToken = new Circle(20, Color.RED);
+        visualToken.setCenterX(token.posXProperty().get());
+        visualToken.setCenterY(token.posYProperty().get());
+        visualToken.centerXProperty().bindBidirectional(token.posXProperty());
+        visualToken.centerYProperty().bindBidirectional(token.posYProperty());
+
+        visualToken.setOnMouseClicked(me -> {
+            lblNomeToken.setText(token.nomeProperty().get());
             visualToken.setStroke(Color.WHITE);
             visualToken.setStrokeWidth(3);
         });
 
-
         visualToken.setOnMouseDragged(me -> {
-            novoToken.posXProperty().set(me.getX());
-            novoToken.posYProperty().set(me.getY());
+            token.posXProperty().set(me.getX());
+            token.posYProperty().set(me.getY());
         });
 
         visualToken.setOnMouseReleased(me -> {
-            //novoToken.posXProperty().set(Math.round((me.getX()/TAMANHO_GRID))*TAMANHO_GRID);
-            //novoToken.posYProperty().set(Math.round((me.getY()/TAMANHO_GRID))*TAMANHO_GRID);
-            double xAtual = novoToken.posXProperty().get();
-            double yAtual = novoToken.posYProperty().get();
+            double xAtual = token.posXProperty().get();
+            double yAtual = token.posYProperty().get();
 
-            // Descobre em qual coluna e linha do grid o mouse está
             double coluna = Math.floor(xAtual / TAMANHO_GRID);
             double linha = Math.floor(yAtual / TAMANHO_GRID);
 
-            // Calcula o centro exato daquele quadrado do grid
             double novoX = (coluna * TAMANHO_GRID) + (TAMANHO_GRID / 2.0);
             double novoY = (linha * TAMANHO_GRID) + (TAMANHO_GRID / 2.0);
 
-            // Proteção para não jogar o token para fora da tela (valores negativos)
             if (novoX < 0) novoX = TAMANHO_GRID / 2.0;
             if (novoY < 0) novoY = TAMANHO_GRID / 2.0;
 
-            // Atualiza o Model, e a View se ajustará sozinha por conta do Bind
-            novoToken.posXProperty().set(novoX);
-            novoToken.posYProperty().set(novoY);
+            token.posXProperty().set(novoX);
+            token.posYProperty().set(novoY);
+
+            tokenEntity.setPosX(novoX);
+            tokenEntity.setPosY(novoY);
+            tokenRepository.salvar(tokenEntity);
         });
 
         painelMesa.getChildren().add(visualToken);
-    }else{
-        System.out.println("Criação de token cancelada pelo usuário.");
-    }
     }
 
     @FXML
     private void limparMesa() {
         painelMesa.getChildren().clear();
         lblNomeToken.setText("Nenhum");
+
+        if (mesa != null) {
+            tokenRepository.excluirTodosDaMesa(mesa);
+        }
     }
 }
