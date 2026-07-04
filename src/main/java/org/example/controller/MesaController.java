@@ -27,6 +27,8 @@ public class MesaController {
     private Mesa mesa;
     private final TokenRepository tokenRepository = new TokenRepository();
 
+    private Circle tokenSelecionadoVisual;
+
     @FXML
     private Pane painelMesa;
 
@@ -55,6 +57,7 @@ public class MesaController {
     private void carregarTokensSalvos() {
         painelMesa.getChildren().clear();
         lblNomeToken.setText("Nenhum");
+        tokenSelecionadoVisual = null;
 
         if (mesa == null) {
             return;
@@ -89,6 +92,16 @@ public class MesaController {
         }
     }
 
+    private void selecionarToken(Circle visualToken) {
+        if (tokenSelecionadoVisual != null) {
+            tokenSelecionadoVisual.setStroke(null);
+        }
+
+        visualToken.setStroke(Color.WHITE);
+        visualToken.setStrokeWidth(3);
+        tokenSelecionadoVisual = visualToken;
+    }
+
     private void criarTokenNaTela(TokenEntity tokenEntity) {
 
         Token token = new Token(
@@ -106,8 +119,7 @@ public class MesaController {
 
         visualToken.setOnMouseClicked(me -> {
             lblNomeToken.setText(token.nomeProperty().get());
-            visualToken.setStroke(Color.WHITE);
-            visualToken.setStrokeWidth(3);
+            selecionarToken(visualToken);
         });
 
         visualToken.setOnMouseDragged(me -> {
@@ -143,6 +155,7 @@ public class MesaController {
     private void limparMesa() {
         painelMesa.getChildren().clear();
         lblNomeToken.setText("Nenhum");
+        tokenSelecionadoVisual = null;
 
         if (mesa != null) {
             tokenRepository.excluirTodosDaMesa(mesa);
